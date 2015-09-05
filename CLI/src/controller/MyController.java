@@ -17,6 +17,7 @@ public class MyController implements Controller {
 		this.commandMap = new HashMap<String , Command>();
 		commandMap.put("test", new TestCommand());
 		view.setCommands(commandMap);
+		commandMap.put("dir", new Dir(view));
 	}
 
 

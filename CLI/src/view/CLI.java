@@ -35,15 +35,16 @@ public class CLI {
 					while(!buffer.equals("exit")){
 						
 							
-							c = commandMap.get(buffer);
+							c = commandMap.get(buffer.split(" ")[0]);
 							if(c != null)
 							{
-								c.doCommand();
+								c.doCommand(buffer);
 							}
 							else
 							{
 								out.println(buffer+" is not a valid command.");
 							}
+							buffer = in.readLine();
 						
 					}
 					out.flush();

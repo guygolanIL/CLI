@@ -16,9 +16,12 @@ public class MyView implements View {
 
 	private Controller controller;
 	private CLI cli;
+	private BufferedReader in;
+	private PrintWriter out;
 	
-	public MyView(){
-		
+	public MyView(BufferedReader in , PrintWriter out){
+		this.in = in;
+		this.out = out;
 	}
 
 
@@ -41,22 +44,29 @@ public class MyView implements View {
 
 
 	@Override
-	public void display() {
-		// TODO Auto-generated method stub
-		
+	public void display(String[] strings) {
+		for (String string : strings) {
+			out.println(string);
+		}
+		out.flush();
 	}
 
+	@Override
+	public void display(String string) {
+		out.println(string);
+		out.flush();
+	}
 
 	@Override
 	public void setCommands(HashMap<String, Command> commandMap) {
 		
-		try {
-			cli = new CLI(new BufferedReader(new FileReader("test1.txt")),new PrintWriter("test2.txt"), commandMap);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		
+			cli = new CLI(in,out, commandMap);
+		
 		
 	}
+
+
 
 
 	
