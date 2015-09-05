@@ -18,6 +18,8 @@ public class MyController implements Controller {
 		commandMap.put("test", new TestCommand());
 		view.setCommands(commandMap);
 		commandMap.put("dir", new Dir(view));
+		commandMap.put("generate", new Generate(model, view));
+		commandMap.put("display", new Display(model));
 	}
 
 
@@ -38,6 +40,13 @@ public class MyController implements Controller {
 
 	public void setView(View view) {
 		this.view = view;
+	}
+
+
+	@Override
+	public void display(String string) {
+		view.display(string);
+		
 	}
 
 

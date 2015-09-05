@@ -36,9 +36,17 @@ public class CLI {
 						
 							
 							c = commandMap.get(buffer.split(" ")[0]);
+							
 							if(c != null)
 							{
-								c.doCommand(buffer);
+								if(buffer.split(" ").length > 1)
+								{
+									c.doCommand(buffer.substring(buffer.indexOf(' ')+1));
+								}
+								else
+								{
+									out.println("Missing parameters.");
+								}
 							}
 							else
 							{

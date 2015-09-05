@@ -1,0 +1,4 @@
+dir c:\
+generate 3d maze guy 7 7 7
+display guy
+exit

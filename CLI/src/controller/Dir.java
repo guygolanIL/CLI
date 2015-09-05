@@ -2,6 +2,8 @@ package controller;
 
 import java.io.File;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import view.View;
 
 public class Dir implements Command {
@@ -16,8 +18,20 @@ public class Dir implements Command {
 	@Override
 	public void doCommand(String param) {
 		
-		view.display(new File(param.split("dir ")[1]).list());
-
+		
+		
+		
+		if(param != null)
+		{
+			view.display(new File(param).list());
+		}
+		else
+		{
+			view.display("Missing parameters");
+		}
+		
+			
+		
 	}
 
 }
