@@ -38,32 +38,43 @@ public class MyView implements View {
 	@Override
 	public void start() {
 		
-		
 		cli.start();
 	}
 
 
 	@Override
 	public void display(String[] strings) {
-		for (String string : strings) {
-			out.println(string);
+		if(strings != null)
+		{
+			for (String string : strings) {
+				out.println(string);
+			}
+			out.flush();
 		}
-		out.flush();
+		else
+		{
+			out.println("NULL");
+			out.flush();
+		}
 	}
 
 	@Override
 	public void display(String string) {
-		out.println(string);
-		out.flush();
+		if(string != null)
+		{
+			out.println(string);
+			out.flush();
+		}
+		else
+		{
+			out.println("Error");
+			out.flush();
+		}
 	}
 
 	@Override
-	public void setCommands(HashMap<String, Command> commandMap) {
-		
-		
+	public void setCommands(HashMap<String, Command> commandMap) {	
 			cli = new CLI(in,out, commandMap);
-		
-		
 	}
 
 

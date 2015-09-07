@@ -47,13 +47,12 @@ public class MyModel implements Model {
 
 
 	@Override
-	public void mazeDisplay(String param) {
-		Maze3d  temp = mazeMap.get(param);
+	public void mazeDisplay(String name) {
+		Maze3d  temp = mazeMap.get(name);
 		
 		if(temp != null)
 		{
-			
-			controller.display(param+ "\n" +temp.toString());	
+			controller.display(name+ "\n" +temp.toString());	
 		}
 		else
 		{

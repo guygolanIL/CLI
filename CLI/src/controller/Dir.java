@@ -17,10 +17,7 @@ public class Dir implements Command {
 	
 	@Override
 	public void doCommand(String param) {
-		
-		
-		
-		
+
 		if(param != null)
 		{
 			view.display(new File(param).list());
@@ -29,8 +26,6 @@ public class Dir implements Command {
 		{
 			view.display("Missing parameters");
 		}
-		
-			
 		
 	}
 

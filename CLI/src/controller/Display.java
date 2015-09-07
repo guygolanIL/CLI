@@ -13,7 +13,6 @@ public class Display implements Command {
 	public void doCommand(String param) {
 		
 		model.mazeDisplay(param);
-
 	}
 
 }

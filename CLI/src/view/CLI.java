@@ -33,10 +33,10 @@ public class CLI {
 					String buffer = in.readLine();
 					
 					while(!buffer.equals("exit")){
+
 						
-							
 							c = commandMap.get(buffer.split(" ")[0]);
-							
+								
 							if(c != null)
 							{
 								if(buffer.split(" ").length > 1)
@@ -46,16 +46,23 @@ public class CLI {
 								else
 								{
 									out.println("Missing parameters.");
+									out.flush();
 								}
 							}
 							else
 							{
+								
 								out.println(buffer+" is not a valid command.");
+								out.flush();
+								
 							}
+						
+						
+							
 							buffer = in.readLine();
 						
 					}
-					out.flush();
+					//out.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

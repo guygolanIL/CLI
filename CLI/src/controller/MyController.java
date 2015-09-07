@@ -16,10 +16,10 @@ public class MyController implements Controller {
 		this.view = view;
 		this.commandMap = new HashMap<String , Command>();
 		commandMap.put("test", new TestCommand());
-		view.setCommands(commandMap);
 		commandMap.put("dir", new Dir(view));
 		commandMap.put("generate", new Generate(model, view));
 		commandMap.put("display", new Display(model));
+		view.setCommands(commandMap);
 	}
 
 
@@ -46,7 +46,6 @@ public class MyController implements Controller {
 	@Override
 	public void display(String string) {
 		view.display(string);
-		
 	}
 
 
