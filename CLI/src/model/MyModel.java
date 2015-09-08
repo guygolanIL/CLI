@@ -40,4 +40,81 @@ public class MyModel extends CommonModel {
 		}
 	}
 
+	@Override
+	public void displayCrossSectionByX(int index, String name) {
+		Maze3d  tmpMaze = mazeMap.get(name);
+		
+		if(tmpMaze != null)
+		{
+			controller.display(arrIntToString(tmpMaze.getCrossSectionByX(index)));	
+		}
+		else
+		{
+			controller.display("Unavailable maze!");
+		}		
+	}
+
+
+	@Override
+	public void displayCrossSectionByY(int index, String name) {
+		Maze3d  tmpMaze = mazeMap.get(name);
+		
+		if(tmpMaze != null)
+		{
+			controller.display(arrIntToString(tmpMaze.getCrossSectionByY(index)));	
+		}
+		else
+		{
+			controller.display("Unavailable maze!");
+		}		
+		
+	}
+
+	@Override
+	public void displayCrossSectionByZ(int index, String name) {
+		Maze3d  tmpMaze = mazeMap.get(name);
+		
+		if(tmpMaze != null)
+		{
+			controller.display(arrIntToString(tmpMaze.getCrossSectionByZ(index)));	
+		}
+		else
+		{
+			controller.display("Unavailable maze!");
+		}		
+		
+	}
+	
+	private String arrIntToString(int[][] arr) {
+		String s = "";
+		
+		for (int[] i : arr)
+		{
+			for(int j : i)
+			{
+				s = s + j + " ";
+				
+			}
+			s = s+ "\n";
+		}
+		
+		return s;
+	}
+
+	@Override
+	public void save(String name, String fileName) {
+		Maze3d  tmpMaze = mazeMap.get(name);
+		
+		if(tmpMaze != null)
+		{
+			
+			//TODO //////////////////////////////////
+				
+		}
+		else
+		{
+			controller.display("Unavailable maze!");
+		}				
+	}
+
 }

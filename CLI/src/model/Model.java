@@ -6,5 +6,13 @@ public interface Model {
 
 	void mazeDisplay(String param);
 
+	void displayCrossSectionByX(int index, String name);
+
+	void displayCrossSectionByY(int index, String name);
+	
+	void displayCrossSectionByZ(int index, String name);
+
+	void save(String name, String fileName);
+
 	
 }
