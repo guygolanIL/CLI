@@ -2,17 +2,19 @@ package controller;
 
 import java.io.File;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
-import view.View;
+public class Dir extends CommonCommand{
 
-public class Dir implements Command {
-
-	private View view;
+	//private View view;
 	
 
-	public Dir(View view) {
+	/*public Dir(View view) {
 		this.view = view;
+	}*/
+	
+	public Dir(	Controller controller) {
+		super(controller);
+		
 	}
 	
 	@Override
@@ -20,11 +22,11 @@ public class Dir implements Command {
 
 		if(param != null)
 		{
-			view.display(new File(param).list());
+			controller.display(new File(param).list());
 		}
 		else
 		{
-			view.display("Missing parameters");
+			controller.display("Missing parameters");
 		}
 		
 	}

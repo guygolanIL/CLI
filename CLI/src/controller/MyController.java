@@ -5,49 +5,28 @@ import java.util.HashMap;
 import model.Model;
 import view.View;
 
-public class MyController implements Controller {
+public class MyController extends CommonController {
 
-	private Model model;
-	private View view;
+	
 	private HashMap<String, Command> commandMap;
 	
 	public MyController(Model model , View view) {
-		this.model = model ;
-		this.view = view;
+		super(model,view);
+		
 		this.commandMap = new HashMap<String , Command>();
 		commandMap.put("test", new TestCommand());
-		commandMap.put("dir", new Dir(view));
-		commandMap.put("generate", new Generate(model, view));
-		commandMap.put("display", new Display(model));
+		commandMap.put("dir", new Dir(this));
+		commandMap.put("generate", new Generate(this));
+		commandMap.put("display", new Display(this));
 		view.setCommands(commandMap);
 	}
 
-
-	public Model getModel() {
-		return model;
-	}
-
-
-	public void setModel(Model model) {
-		this.model = model;
-	}
-
-
-	public View getView() {
-		return view;
-	}
-
-
-	public void setView(View view) {
-		this.view = view;
-	}
-
-
 	@Override
-	public void display(String string) {
-		view.display(string);
+	public void generate(String name, int x, int y, int z) {
+		model.generate(name, x, y, z);
+		
 	}
 
-
+	
 
 }

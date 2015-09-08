@@ -1,18 +1,17 @@
 package controller;
 
-import model.Model;
 
-public class Display implements Command {
+public class Display extends CommonCommand {
 
-	private Model model;
 	
-	public Display(Model model) {
-		this.model = model;
+	
+	public Display(Controller controller) {
+		super(controller);
 	}
 	@Override
-	public void doCommand(String param) {
+	public void doCommand(String name) {
 		
-		model.mazeDisplay(param);
+		controller.mazeDisplay(name);
 	}
 
 }

@@ -1,16 +1,9 @@
 package controller;
 
-import model.Model;
-import view.View;
+public class Generate extends CommonCommand {
 
-public class Generate implements Command {
-
-	private Model model;
-	private View view;
-	
-	public Generate(Model model , View view) {
-		this.model = model;
-		this.view = view;
+	public Generate(Controller controller) {
+		super(controller);
 	}
 	
 	
@@ -20,15 +13,15 @@ public class Generate implements Command {
 		if(s[0].equals("3d") && s[1].equals("maze") && s.length > 5)
 		{
 			try {
-				model.generate(s[2],Integer.parseInt(s[3]),Integer.parseInt(s[4]),Integer.parseInt(s[5]));
+				controller.generate(s[2],Integer.parseInt(s[3]),Integer.parseInt(s[4]),Integer.parseInt(s[5]));
 			} catch (NumberFormatException e) {
 				
-				view.display("Invalid parameters.");
+				controller.display("Invalid parameters.");
 			}
 		}
 		else
 		{
-			view.display("Missing parameters.");
+			controller.display("Missing parameters.");
 		}
 		
 

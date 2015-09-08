@@ -1,37 +1,18 @@
 package view;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.HashMap;
-
-import javax.xml.bind.helpers.PrintConversionEventImpl;
-
 import controller.Command;
-import controller.Controller;
 
-public class MyView implements View {
+public class MyView extends CommonView {
 
-	private Controller controller;
-	private CLI cli;
-	private BufferedReader in;
-	private PrintWriter out;
 	
-	public MyView(BufferedReader in , PrintWriter out){
-		this.in = in;
-		this.out = out;
-	}
-
-
-	public Controller getController() {
-		return controller;
-	}
-
-
-	public void setController(Controller controller) {
-		this.controller = controller;
+	private CLI cli;
+	
+	
+	public MyView(BufferedReader in , PrintWriter out) {
+		super(in , out);
 	}
 
 

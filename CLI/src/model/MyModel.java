@@ -1,34 +1,15 @@
 package model;
 
-import java.util.HashMap;
-
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.MyMaze3dGenerator;
-import controller.Controller;
 
-public class MyModel implements Model {
+public class MyModel extends CommonModel {
 
-	private Controller controller;
-	private HashMap<String, Maze3d> mazeMap;
-	
+
 	public MyModel() {
-		mazeMap = new HashMap<String, Maze3d>();
+		super();
 	}
 	
-	
-	
-	public Controller getController(){
-		return controller;
-	}
-
-
-
-	public void setController(Controller controller) {
-		this.controller = controller;
-	}
-
-
-
 	@Override
 	public void generate(String name, int x, int y, int z) {
 		
@@ -43,7 +24,6 @@ public class MyModel implements Model {
 		}).start();
 		
 	}
-
 
 
 	@Override
