@@ -14,5 +14,7 @@ public interface Model {
 
 	void save(String name, String fileName);
 
+	void load(String fileName, String name);
+
 	
 }

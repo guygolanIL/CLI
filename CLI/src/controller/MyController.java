@@ -18,6 +18,7 @@ public class MyController extends CommonController {
 		commandMap.put("dir", new Dir(this));
 		commandMap.put("generate", new Generate(this));
 		commandMap.put("display", new Display(this));
+		commandMap.put("save", new Save(this));
 		
 		view.setCommands(commandMap);
 	}
@@ -49,6 +50,12 @@ public class MyController extends CommonController {
 	@Override
 	public void save(String name, String fileName) {
 		model.save(name,fileName);
+		
+	}
+
+	@Override
+	public void load(String fileName, String name) {
+		model.load(fileName,name);
 		
 	}
 

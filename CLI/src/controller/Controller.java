@@ -9,6 +9,7 @@ public interface Controller {
 	public void displayCrossSectionByX(int index,String name);
 	public void displayCrossSectionByY(int index,String name);
 	public void displayCrossSectionByZ(int index,String name);
-	public void save(String string, String string2);
+	public void save(String name, String fileName);
+	public void load(String fileName, String name);
 	
 }

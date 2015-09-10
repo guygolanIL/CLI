@@ -1,7 +1,16 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.MyMaze3dGenerator;
+import io.MyCompressorOutputStream;
+import io.MyDecompressorInputStream;
 
 public class MyModel extends CommonModel {
 
@@ -107,14 +116,47 @@ public class MyModel extends CommonModel {
 		
 		if(tmpMaze != null)
 		{
-			
-			//TODO //////////////////////////////////
-		     	
+			try {
+				MyCompressorOutputStream tmpCompressor = new MyCompressorOutputStream(new FileOutputStream(fileName));
+				tmpCompressor.write(tmpMaze.toByteArray());
+				tmpCompressor.close();
+				controller.display(name + " maze saved to " + fileName + ".");
+			} catch (FileNotFoundException e) {
+				controller.display("wrong file path");
+			} catch (IOException e)
+			{
+				controller.display("general error");
+			}
 		}
 		else
 		{
 			controller.display("Unavailable maze!");
 		}				
+	}
+
+	@Override
+	public void load(String fileName, String name) {
+Maze3d  tmpMaze = mazeMap.get(name);
+
+			try {
+				FileInputStream file = new FileInputStream(fileName);
+				MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(file);
+				byte [] b = new byte [file.available()];
+				tmpDecompressor.read(b);
+				tmpCompressor.close();
+				controller.display(name + " maze saved to " + fileName + ".");
+			} catch (FileNotFoundException e) {
+				controller.display("wrong file path");
+			} catch (IOException e)
+			{
+				controller.display("general error");
+			}
+		}
+		else
+		{
+			controller.display("Unavailable maze!");
+		}				
+		
 	}
 
 }
