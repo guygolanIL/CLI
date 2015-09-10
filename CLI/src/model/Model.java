@@ -16,5 +16,11 @@ public interface Model {
 
 	void load(String fileName, String name);
 
+	void size(String name);
+
+	void fileSize(String name);
+
+	void solve(String name, String algorithm);
+
 	
 }

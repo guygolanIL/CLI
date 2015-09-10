@@ -11,5 +11,8 @@ public interface Controller {
 	public void displayCrossSectionByZ(int index,String name);
 	public void save(String name, String fileName);
 	public void load(String fileName, String name);
+	public void size(String name);
+	public void fileSize(String string);
+	public void solve(String name, String algorithm);
 	
 }

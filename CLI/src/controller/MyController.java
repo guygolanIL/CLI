@@ -20,7 +20,10 @@ public class MyController extends CommonController {
 		commandMap.put("display", new Display(this));
 		commandMap.put("save", new Save(this));
 		commandMap.put("load", new Load(this));
-		
+		commandMap.put("maze", new Size(this));
+		commandMap.put("file", new FileSize(this));
+		commandMap.put("solve", new Solve(this));
+
 		view.setCommands(commandMap);
 	}
 
@@ -57,6 +60,23 @@ public class MyController extends CommonController {
 	@Override
 	public void load(String fileName, String name) {
 		model.load(fileName,name);
+		
+	}
+
+	@Override
+	public void size(String name) {
+		model.size(name);
+		
+	}
+
+	@Override
+	public void fileSize(String name) {
+		model.fileSize(name);
+	}
+
+	@Override
+	public void solve(String name, String algorithm) {
+		model.solve(name , algorithm);
 		
 	}
 

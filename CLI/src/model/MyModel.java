@@ -1,5 +1,8 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,6 +10,10 @@ import java.io.IOException;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.MyMaze3dGenerator;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.BFS;
+import algorithms.search.MazeDomain;
+import algorithms.search.Searcher;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
@@ -148,6 +155,75 @@ public class MyModel extends CommonModel {
 			{
 				controller.display("general error");
 			}
+	}
+
+	@Override
+	public void size(String name) {
+		
+		
+		Maze3d tempMaze = mazeMap.get(name);
+		if(tempMaze!=null)
+		{
+			controller.display("the size of " + name  + " maze in the memory is: "+(tempMaze.getxAxis()* tempMaze.getyAxis()*tempMaze.getzAxis()+9)+".");
+		}
+		else
+		{
+			controller.display(name+" is Unavailable!");
+		}
+		
+	}
+
+	@Override
+	public void fileSize(String name) {
+		Maze3d  tmpMaze = mazeMap.get(name);
+		
+		if(tmpMaze != null)
+		{
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+			MyCompressorOutputStream compress = new MyCompressorOutputStream(buffer);
+			try {
+				compress.write(tmpMaze.toByteArray());
+				controller.display("the size of " + name + " maze in file is: " + buffer.size());
+			} catch (IOException e) {
+				controller.display("general error");
+			}
+		}
+		else
+		{
+			controller.display("Unavailable maze!");
+		}						
+	}
+
+	@Override
+	public void solve(String name, String algorithm) {
+		
+		Maze3d tmpMaze = mazeMap.get(name);
+		if(tmpMaze!=null)
+		{
+			Searcher<Position> alg;
+			switch(algorithm)
+			{
+			case "BFS":
+					alg = new BFS<Position>();
+				break;
+			case "AstarManhattan":
+				alg = new BFS<Position>();
+				break;
+			case "AstarAirDistance":
+				alg = new BFS<Position>();
+				break;
+				
+				default :
+					controller.display(algorithm+" is not a valid algorithm! \nValid algorithms are : <BFS>, <AstarManhattan>, <AstarAirDistance>.");
+					return;
+			}
+			controller.display(alg.search(new MazeDomain(tmpMaze)).toString());
+		}
+		else
+		{
+			controller.display(name+ " maze is unavailable!");
+		}
+		
 	}
 
 }
