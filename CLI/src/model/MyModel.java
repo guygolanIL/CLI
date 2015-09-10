@@ -1,10 +1,8 @@
 package model;
 
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import algorithms.mazeGenerators.Maze3d;
@@ -136,27 +134,20 @@ public class MyModel extends CommonModel {
 
 	@Override
 	public void load(String fileName, String name) {
-Maze3d  tmpMaze = mazeMap.get(name);
-
 			try {
-				FileInputStream file = new FileInputStream(fileName);
-				MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(file);
-				byte [] b = new byte [file.available()];
+				MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(new FileInputStream(fileName));
+				byte [] b = new byte [tmpDecompressor.available()];
 				tmpDecompressor.read(b);
-				tmpCompressor.close();
-				controller.display(name + " maze saved to " + fileName + ".");
+				Maze3d  tmpMaze = new Maze3d(b);
+				mazeMap.put(name, tmpMaze);
+				controller.display(name + " maze loaded.");
+				tmpDecompressor.close();
 			} catch (FileNotFoundException e) {
 				controller.display("wrong file path");
 			} catch (IOException e)
 			{
 				controller.display("general error");
 			}
-		}
-		else
-		{
-			controller.display("Unavailable maze!");
-		}				
-		
 	}
 
 }

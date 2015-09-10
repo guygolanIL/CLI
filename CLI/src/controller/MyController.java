@@ -19,6 +19,7 @@ public class MyController extends CommonController {
 		commandMap.put("generate", new Generate(this));
 		commandMap.put("display", new Display(this));
 		commandMap.put("save", new Save(this));
+		commandMap.put("load", new Load(this));
 		
 		view.setCommands(commandMap);
 	}
