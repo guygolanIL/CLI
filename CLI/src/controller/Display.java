@@ -39,6 +39,10 @@ public class Display extends CommonCommand {
 			}
 				 
 		}
+		else if ((s[0].equals("solution"))&&(s.length > 1))
+		{
+			controller.displaySolution(s[1]);
+		}
 		else
 		controller.mazeDisplay(name);
 	}

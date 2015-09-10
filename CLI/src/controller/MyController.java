@@ -80,6 +80,12 @@ public class MyController extends CommonController {
 		
 	}
 
+	@Override
+	public void displaySolution(String name) {
+		model.displaySolution( name);
+		
+	}
+
 	
 
 }
