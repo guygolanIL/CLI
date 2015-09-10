@@ -14,6 +14,7 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.BFS;
 import algorithms.search.MazeDomain;
 import algorithms.search.Searcher;
+import algorithms.search.Solution;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
@@ -196,34 +197,58 @@ public class MyModel extends CommonModel {
 
 	@Override
 	public void solve(String name, String algorithm) {
-		
-		Maze3d tmpMaze = mazeMap.get(name);
-		if(tmpMaze!=null)
-		{
-			Searcher<Position> alg;
-			switch(algorithm)
-			{
-			case "BFS":
-					alg = new BFS<Position>();
-				break;
-			case "AstarManhattan":
-				alg = new BFS<Position>();
-				break;
-			case "AstarAirDistance":
-				alg = new BFS<Position>();
-				break;
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
 				
-				default :
-					controller.display(algorithm+" is not a valid algorithm! \nValid algorithms are : <BFS>, <AstarManhattan>, <AstarAirDistance>.");
-					return;
+				Maze3d tmpMaze = mazeMap.get(name);
+				if(tmpMaze!=null)
+				{
+					Searcher<Position> alg;
+					switch(algorithm)
+					{
+					case "BFS":
+							alg = new BFS<Position>();
+						break;
+					case "AstarManhattan":
+						alg = new BFS<Position>();
+						break;
+					case "AstarAirDistance":
+						alg = new BFS<Position>();
+						break;
+						
+						default :
+							controller.display(algorithm+" is not a valid algorithm! \nValid algorithms are : <BFS>, <AstarManhattan>, <AstarAirDistance>.");
+							return;
+					}
+					solutionMap.put(name,alg.search(new MazeDomain(tmpMaze)));
+					controller.display("solution for " +name+ " is ready");
+				}
+				else
+				{
+					controller.display(name+ " maze is unavailable!");
+				}
+				
+							
 			}
-			controller.display(alg.search(new MazeDomain(tmpMaze)).toString());
+		}).start();
+	}
+
+	@Override
+	public void displaySolution(String name) {
+		Solution<Position>  tmp = solutionMap.get(name);
+		
+		if(tmp != null)
+		{
+			controller.display("the solution of " +name+ " maze is:\n" +(tmp.toString()));	
 		}
 		else
 		{
-			controller.display(name+ " maze is unavailable!");
+			controller.display("Unavailable solution!");
 		}
+	
+
 		
 	}
-
 }

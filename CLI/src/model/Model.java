@@ -22,5 +22,7 @@ public interface Model {
 
 	void solve(String name, String algorithm);
 
+	void displaySolution(String name);
+
 	
 }
