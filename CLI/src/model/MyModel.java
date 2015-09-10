@@ -1,12 +1,11 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.MyMaze3dGenerator;
@@ -28,7 +27,7 @@ public class MyModel extends CommonModel {
 	@Override
 	public void generate(String name, int x, int y, int z) {
 		
-		new Thread(new Runnable() {
+		threadPool.execute( new Runnable() {
 			
 			@Override
 			public void run() {
@@ -36,7 +35,7 @@ public class MyModel extends CommonModel {
 				mazeMap.put(name, maze);
 				controller.display("The "+name+" maze is ready.");
 			}
-		}).start();
+		});
 		
 	}
 
@@ -197,7 +196,7 @@ public class MyModel extends CommonModel {
 
 	@Override
 	public void solve(String name, String algorithm) {
-		new Thread(new Runnable() {
+		threadPool.execute(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -232,7 +231,7 @@ public class MyModel extends CommonModel {
 				
 							
 			}
-		}).start();
+		});
 	}
 
 	@Override
@@ -250,5 +249,22 @@ public class MyModel extends CommonModel {
 	
 
 		
+	}
+
+	@Override
+	public void exit() {
+		try {
+			threadPool.shutdown();
+			if (!threadPool.awaitTermination(5,TimeUnit.SECONDS ))
+			{
+				threadPool.shutdownNow();
+				System.out.println("threads terminated violantly!");
+			}
+			else
+				System.out.println("all threads terminated!");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}	
+			
 	}
 }

@@ -57,18 +57,19 @@ public class CLI {
 								
 							}
 						
-						
+							
 							
 							buffer = in.readLine();
 						
 					}
-					//out.flush();
+					commandMap.get("exit").doCommand("");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				
 			}
 		}).start();
+		
 			
 			
 		

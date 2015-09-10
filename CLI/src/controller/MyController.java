@@ -23,6 +23,7 @@ public class MyController extends CommonController {
 		commandMap.put("maze", new Size(this));
 		commandMap.put("file", new FileSize(this));
 		commandMap.put("solve", new Solve(this));
+		commandMap.put("exit", new Exit(this));
 
 		view.setCommands(commandMap);
 	}
@@ -83,6 +84,13 @@ public class MyController extends CommonController {
 	@Override
 	public void displaySolution(String name) {
 		model.displaySolution( name);
+		
+	}
+
+	@Override
+	public void exit() {
+		model.exit();
+		view.exit();
 		
 	}
 

@@ -15,5 +15,6 @@ public interface Controller {
 	public void fileSize(String fileName);
 	public void solve(String name, String algorithm);
 	public void displaySolution(String name);
+	public void exit();
 	
 }

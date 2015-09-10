@@ -59,6 +59,13 @@ public class MyView extends CommonView {
 	}
 
 
+	@Override
+	public void exit() {
+		System.out.println("the program terminated!");
+		
+	}
+
+
 
 
 	

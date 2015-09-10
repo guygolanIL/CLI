@@ -24,5 +24,7 @@ public interface Model {
 
 	void displaySolution(String name);
 
+	void exit();
+
 	
 }

@@ -10,5 +10,6 @@ public interface View {
 	void display(String string);
 	void display(String[] strings);
 	void setCommands(HashMap<String, Command> commandMap);
+	void exit();
 
 }

@@ -1,6 +1,8 @@
 package model;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
@@ -12,11 +14,13 @@ public abstract class CommonModel implements Model {
 	protected Controller controller;
 	protected HashMap<String, Maze3d> mazeMap;
 	protected HashMap<String, Solution<Position>> solutionMap;
+	protected ExecutorService threadPool;
 	
 	
 	public CommonModel() {
 		mazeMap = new HashMap<String, Maze3d>();
 		solutionMap = new HashMap<String, Solution<Position>>();
+		 threadPool = Executors.newCachedThreadPool();
 	}
 	
 	public abstract void generate(String name, int x, int y, int z);
