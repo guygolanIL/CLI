@@ -267,7 +267,7 @@ public class MyModel extends CommonModel {
 			if (!threadPool.awaitTermination(5,TimeUnit.SECONDS ))
 			{
 				threadPool.shutdownNow();
-				controller.display("threads terminated violantly!");
+				controller.display("threads terminated violently!");
 			}
 			else
 				controller.display("all threads terminated!");
