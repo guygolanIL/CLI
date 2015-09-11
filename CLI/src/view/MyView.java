@@ -1,6 +1,7 @@
 package view;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import controller.Command;
@@ -61,7 +62,12 @@ public class MyView extends CommonView {
 
 	@Override
 	public void exit() {
-		System.out.println("the program terminated!");
+			
+			out.println("the program terminated!");
+			out.flush();
+		
+			
+	
 		
 	}
 

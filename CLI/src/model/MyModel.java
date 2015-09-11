@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.MyMaze3dGenerator;
 import algorithms.mazeGenerators.Position;
@@ -143,18 +142,23 @@ public class MyModel extends CommonModel {
 	public void load(String fileName, String name) {
 			try {
 				MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(new FileInputStream(fileName));
-				byte [] b = new byte [tmpDecompressor.available()];
-				tmpDecompressor.read(b);
-				Maze3d  tmpMaze = new Maze3d(b);
+				byte [] buffer = new byte[15*15*15]; //15 is the maximum supported maze in the compressor
+				if (tmpDecompressor.read(buffer)==-1)
+				{
+				Maze3d  tmpMaze = new Maze3d(buffer);
 				mazeMap.put(name, tmpMaze);
 				controller.display(name + " maze loaded.");
 				tmpDecompressor.close();
+				}
+				else
+					controller.display("the requsted maze is too big!");
 			} catch (FileNotFoundException e) {
 				controller.display("wrong file path");
 			} catch (IOException e)
 			{
 				controller.display("general error");
 			}
+			
 	}
 
 	@Override
@@ -186,12 +190,17 @@ public class MyModel extends CommonModel {
 				controller.display("the size of " + name + " maze in file is: " + buffer.size());
 			} catch (IOException e) {
 				controller.display("general error");
-			}
+			}finally {try {
+				compress.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}}
 		}
 		else
 		{
 			controller.display("Unavailable maze!");
-		}						
+		}	
+		
 	}
 
 	@Override
@@ -258,10 +267,10 @@ public class MyModel extends CommonModel {
 			if (!threadPool.awaitTermination(5,TimeUnit.SECONDS ))
 			{
 				threadPool.shutdownNow();
-				System.out.println("threads terminated violantly!");
+				controller.display("threads terminated violantly!");
 			}
 			else
-				System.out.println("all threads terminated!");
+				controller.display("all threads terminated!");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}	
