@@ -2,21 +2,21 @@ package controller;
 
 import java.io.File;
 
-
+/**
+ * Defines what the Command Dir should do.
+ * @author Guy Golan & Amit Sandak
+ *
+ */
 public class Dir extends CommonCommand{
 
-	//private View view;
-	
-
-	/*public Dir(View view) {
-		this.view = view;
-	}*/
-	
-	public Dir(	Controller controller) {
+	public Dir(	Controller controller) {		//Ctor
 		super(controller);
-		
 	}
 	
+	/**
+	 * Using type File to display the files in the path given
+	 * @param param - the file path.
+	 */
 	@Override
 	public void doCommand(String param) {
 

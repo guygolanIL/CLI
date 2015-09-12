@@ -3,13 +3,18 @@ package controller;
 import model.Model;
 import view.View;
 
+/**
+ * Implementing what every Controller must have.
+ * @author Guy Golan & Amit Sandak
+ *
+ */
 public abstract class CommonController implements Controller {
 
 
 	protected Model model;
 	protected View view;
 	
-	public CommonController(Model model , View view) {
+	public CommonController(Model model , View view) {		//Ctor
 		this.model = model;
 		this.view = view;
 	}
@@ -17,6 +22,7 @@ public abstract class CommonController implements Controller {
 	public Model getModel() {
 		return model;
 	}
+	
 	public void setModel(Model model) {
 		this.model = model;
 	}
@@ -31,7 +37,6 @@ public abstract class CommonController implements Controller {
 		this.view = view;
 	}
 
-	
 	@Override
 	public void display(String string) {
 		view.display(string);

@@ -1,11 +1,21 @@
 package controller;
 
+/**
+ * Defines what the Command Save should do.
+ * @author Guy Golan & Amit Sandak.
+ *
+ */
 public class Save extends CommonCommand {
 
-	public Save(Controller controller) {
+	public Save(Controller controller) {	//Ctor
 		super(controller);
 	}
 
+	
+	/**
+	 * Using the Controller to save a Maze3d to a file.
+	 * @param param - parameters.
+	 */
 	@Override
 	public void doCommand(String param) {
 		String s[] = param.split(" ");
@@ -19,7 +29,5 @@ public class Save extends CommonCommand {
 			controller.display("Missing parameters.");
 		}
 		
-		
 	}
-
 }

@@ -1,18 +1,24 @@
 package controller;
 
-
+/**
+ * Defines what the Command Display should do.
+ * @author Guy Golan & Amit Sandak
+ *
+ */
 public class Display extends CommonCommand {
 
-	
-	
-	public Display(Controller controller) {
+	public Display(Controller controller) {		//Ctor
 		super(controller);
 	}
 	
+	/**
+	 * According to the parameters, displays the Maze3d ,solution or the crossSection.
+	 * @param param - parameters for the Command. 
+	 */
 	@Override
-	public void doCommand(String name) {
-		String[] s = name.split(" ");
-		if ((s[0].equals("cross"))&&(s.length > 5))
+	public void doCommand(String param) {
+		String[] s = param.split(" ");
+		if ((s[0].equals("cross"))&&(s.length > 5))		//validates if there are no missing parameters
 		{
 			try{
 			switch (s[3])
@@ -39,12 +45,12 @@ public class Display extends CommonCommand {
 			}
 				 
 		}
-		else if ((s[0].equals("solution"))&&(s.length > 1))
+		else if ((s[0].equals("solution"))&&(s.length > 1))		//checks if the first parameter is "solution"
 		{
 			controller.displaySolution(s[1]);
 		}
 		else
-		controller.mazeDisplay(name);
+		controller.mazeDisplay(param);
 	}
 
 }
