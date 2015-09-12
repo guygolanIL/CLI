@@ -7,23 +7,30 @@ import java.util.HashMap;
 
 import controller.Command;
 
+/**
+ * Defines what the user interface CLI can do.
+ * @author Guy Golan & Amit Sandak
+ *
+ */
 public class CLI {
 
 	private BufferedReader in ;
 	private PrintWriter out;
 	private HashMap<String, Command> commandMap;
 	
-	public CLI(BufferedReader in , PrintWriter out , HashMap<String, Command> commandMap) {
+	public CLI(BufferedReader in , PrintWriter out , HashMap<String, Command> commandMap) {		//Ctor
 		this.in = in ;
 		this.out = out;
 		this.commandMap = commandMap;
 	}
 	
-	
+	/**
+	 * Starting the run of the CLI.
+	 */
 	public void start() {
 		
 		
-		new Thread(new Runnable() {
+		new Thread(new Runnable() {					//the user interface runs in an independant thread.
 			
 			@Override
 			public void run() {
@@ -41,7 +48,7 @@ public class CLI {
 							{
 								if(buffer.split(" ").length > 1)
 								{
-									c.doCommand(buffer.substring(buffer.indexOf(' ')+1));
+									c.doCommand(buffer.substring(buffer.indexOf(' ')+1));			//executing the command.
 								}
 								else
 								{
@@ -56,11 +63,8 @@ public class CLI {
 								out.flush();
 								
 							}
-						
-							
 							
 							buffer = in.readLine();
-						
 					}
 					commandMap.get("exit").doCommand("");
 				} catch (IOException e) {
@@ -69,10 +73,7 @@ public class CLI {
 				
 			}
 		}).start();
-		
-			
-			
-		
+
 	}
 	
 }

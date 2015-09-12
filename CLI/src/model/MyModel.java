@@ -137,7 +137,7 @@ public class MyModel extends CommonModel {
 			try {
 				MyCompressorOutputStream tmpCompressor = new MyCompressorOutputStream(new FileOutputStream(fileName));
 				tmpCompressor.write(tmpMaze.toByteArray());
-				tmpCompressor.close();
+				tmpCompressor.close();									//compressing the maze into and writing it to the file.
 				controller.display(name + " maze saved to " + fileName + ".");
 			} catch (FileNotFoundException e) {
 				controller.display("wrong file path");
@@ -154,20 +154,20 @@ public class MyModel extends CommonModel {
 
 	@Override
 	public void load(String fileName, String name) {
-			try {
-					MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(new FileInputStream(fileName));
-					byte [] buffer = new byte[15*15*15]; //15 is the maximum supported maze in the compressor
-					if (tmpDecompressor.read(buffer)==-1)
-					{
-						Maze3d  tmpMaze = new Maze3d(buffer);
-						mazeMap.put(name, tmpMaze);
-						controller.display(name + " maze loaded.");
-						tmpDecompressor.close();
-					}
-					else
-					{
-						controller.display("the requsted maze is too big!");
-					}
+		try {
+				MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(new FileInputStream(fileName));
+				byte [] buffer = new byte[15*15*15]; 	//15 is the maximum supported maze in the compressor
+				if (tmpDecompressor.read(buffer)==-1)
+				{
+					Maze3d  tmpMaze = new Maze3d(buffer);
+					mazeMap.put(name, tmpMaze);
+					controller.display(name + " maze loaded.");
+					tmpDecompressor.close();
+				}
+				else
+				{
+					controller.display("the requsted maze is too big!");
+				}
 			} 
 			catch (FileNotFoundException e) 
 			{
@@ -206,7 +206,7 @@ public class MyModel extends CommonModel {
 			MyCompressorOutputStream compress = new MyCompressorOutputStream(buffer);
 			try 
 			{
-				compress.write(tmpMaze.toByteArray());
+				compress.write(tmpMaze.toByteArray());    //trying to compress the maze into the buffer.
 				controller.display("the size of " + name + " maze in file is: " + buffer.size());
 			} 
 			catch (IOException e) {
@@ -215,10 +215,10 @@ public class MyModel extends CommonModel {
 			finally {
 				try 
 				{
-					compress.close();
+					compress.close();		//closing resources.
 				} 
 				catch (IOException e) {
-				e.printStackTrace();
+					e.printStackTrace();
 				}
 			}
 		}
@@ -240,7 +240,7 @@ public class MyModel extends CommonModel {
 				if(tmpMaze!=null)
 				{
 					Searcher<Position> alg;
-					switch(algorithm)
+					switch(algorithm)							//generating a Searcher according to the parameters.
 					{
 					case "BFS":
 						alg = new BFS<Position>();
@@ -256,7 +256,7 @@ public class MyModel extends CommonModel {
 						controller.display(algorithm+" is not a valid algorithm! \nValid algorithms are : <BFS>, <AstarManhattan>, <AstarAirDistance>.");
 						return;
 					}
-					solutionMap.put(name,alg.search(new MazeDomain(tmpMaze)));
+					solutionMap.put(name,alg.search(new MazeDomain(tmpMaze)));		//inserting the Solution into the solution map.
 					controller.display("solution for " +name+ " is ready");
 				}
 				else
@@ -287,7 +287,7 @@ public class MyModel extends CommonModel {
 	}
 
 	@Override
-	public void exit() {
+	public void exit() {			//safely terminating the existing threads.
 		try {
 			threadPool.shutdown();
 			if (!threadPool.awaitTermination(5,TimeUnit.SECONDS ))

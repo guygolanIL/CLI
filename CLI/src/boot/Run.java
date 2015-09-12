@@ -8,22 +8,13 @@ import controller.MyController;
 import model.MyModel;
 import view.MyView;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Run.
- */
+
 public class Run {
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 */
 	public static void main(String[] args) {
 		
 		MyModel model = new MyModel();
-		//
-		MyView view = new MyView(new BufferedReader(new InputStreamReader(System.in)/*new FileReader("test1.txt")*/),new PrintWriter(System.out)/*new PrintWriter("test2.txt")*/);
+		MyView view = new MyView(new BufferedReader(new InputStreamReader(System.in)),new PrintWriter(System.out));
 		
 		MyController controller = new MyController(model , view);
 		model.setController(controller);

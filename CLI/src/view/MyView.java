@@ -1,18 +1,15 @@
 package view;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import controller.Command;
 
 public class MyView extends CommonView {
 
-	
 	private CLI cli;
 	
-	
-	public MyView(BufferedReader in , PrintWriter out) {
+	public MyView(BufferedReader in , PrintWriter out) {		//Ctor
 		super(in , out);
 	}
 
@@ -20,7 +17,7 @@ public class MyView extends CommonView {
 	@Override
 	public void start() {
 		
-		cli.start();
+		cli.start();			//Initializing the user interface.
 	}
 
 
@@ -65,22 +62,6 @@ public class MyView extends CommonView {
 			
 			out.println("the program terminated!");
 			out.flush();
-		
-			
-	
-		
+
 	}
-
-
-
-
-	
-
-
-	
-	
-	
-	
-	
-
 }
