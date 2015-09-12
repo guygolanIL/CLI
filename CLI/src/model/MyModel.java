@@ -9,24 +9,33 @@ import java.util.concurrent.TimeUnit;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.MyMaze3dGenerator;
 import algorithms.mazeGenerators.Position;
+import algorithms.search.AStar;
 import algorithms.search.BFS;
+import algorithms.search.MazeAirDistance;
 import algorithms.search.MazeDomain;
+import algorithms.search.MazeManhattanDistance;
 import algorithms.search.Searcher;
 import algorithms.search.Solution;
+import algorithms.search.State;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
+/**
+ * Defines what MyModel does.
+ * @author Guy Golan & Amit Sandak.
+ *
+ */
 public class MyModel extends CommonModel {
 
 
-	public MyModel() {
+	public MyModel() {			//Ctor
 		super();
 	}
 	
 	@Override
 	public void generate(String name, int x, int y, int z) {
 		
-		threadPool.execute( new Runnable() {
+		threadPool.execute( new Runnable() {			//generating process occurs in a thread.
 			
 			@Override
 			public void run() {
@@ -98,6 +107,11 @@ public class MyModel extends CommonModel {
 		
 	}
 	
+	/**
+	 * Converts a dou - dimensional array into a String.
+	 * @param arr - a plain.
+	 * @return a string containing the plain.
+	 */
 	private String arrIntToString(int[][] arr) {
 		String s = "";
 		
@@ -141,20 +155,25 @@ public class MyModel extends CommonModel {
 	@Override
 	public void load(String fileName, String name) {
 			try {
-				MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(new FileInputStream(fileName));
-				byte [] buffer = new byte[15*15*15]; //15 is the maximum supported maze in the compressor
-				if (tmpDecompressor.read(buffer)==-1)
-				{
-				Maze3d  tmpMaze = new Maze3d(buffer);
-				mazeMap.put(name, tmpMaze);
-				controller.display(name + " maze loaded.");
-				tmpDecompressor.close();
-				}
-				else
-					controller.display("the requsted maze is too big!");
-			} catch (FileNotFoundException e) {
+					MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(new FileInputStream(fileName));
+					byte [] buffer = new byte[15*15*15]; //15 is the maximum supported maze in the compressor
+					if (tmpDecompressor.read(buffer)==-1)
+					{
+						Maze3d  tmpMaze = new Maze3d(buffer);
+						mazeMap.put(name, tmpMaze);
+						controller.display(name + " maze loaded.");
+						tmpDecompressor.close();
+					}
+					else
+					{
+						controller.display("the requsted maze is too big!");
+					}
+			} 
+			catch (FileNotFoundException e) 
+			{
 				controller.display("wrong file path");
-			} catch (IOException e)
+			} 
+			catch (IOException e)
 			{
 				controller.display("general error");
 			}
@@ -185,16 +204,23 @@ public class MyModel extends CommonModel {
 		{
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			MyCompressorOutputStream compress = new MyCompressorOutputStream(buffer);
-			try {
+			try 
+			{
 				compress.write(tmpMaze.toByteArray());
 				controller.display("the size of " + name + " maze in file is: " + buffer.size());
-			} catch (IOException e) {
+			} 
+			catch (IOException e) {
 				controller.display("general error");
-			}finally {try {
-				compress.close();
-			} catch (IOException e) {
+			}
+			finally {
+				try 
+				{
+					compress.close();
+				} 
+				catch (IOException e) {
 				e.printStackTrace();
-			}}
+				}
+			}
 		}
 		else
 		{
@@ -205,7 +231,7 @@ public class MyModel extends CommonModel {
 
 	@Override
 	public void solve(String name, String algorithm) {
-		threadPool.execute(new Runnable() {
+		threadPool.execute(new Runnable() {			//solving the maze in a new thread
 			
 			@Override
 			public void run() {
@@ -217,18 +243,18 @@ public class MyModel extends CommonModel {
 					switch(algorithm)
 					{
 					case "BFS":
-							alg = new BFS<Position>();
+						alg = new BFS<Position>();
 						break;
 					case "AstarManhattan":
-						alg = new BFS<Position>();
+						alg = new AStar<Position>(new MazeManhattanDistance(new State<Position>(tmpMaze.getExit())));
 						break;
 					case "AstarAirDistance":
-						alg = new BFS<Position>();
+						alg = new AStar<Position>(new MazeAirDistance(new State<Position>(tmpMaze.getExit())));
 						break;
 						
-						default :
-							controller.display(algorithm+" is not a valid algorithm! \nValid algorithms are : <BFS>, <AstarManhattan>, <AstarAirDistance>.");
-							return;
+					default :
+						controller.display(algorithm+" is not a valid algorithm! \nValid algorithms are : <BFS>, <AstarManhattan>, <AstarAirDistance>.");
+						return;
 					}
 					solutionMap.put(name,alg.search(new MazeDomain(tmpMaze)));
 					controller.display("solution for " +name+ " is ready");

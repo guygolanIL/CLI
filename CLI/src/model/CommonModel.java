@@ -9,6 +9,11 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import controller.Controller;
 
+/**
+ * Implementing what every Model should have. 
+ * @author Guy Golan & Amit Sandak
+ *
+ */
 public abstract class CommonModel implements Model {
 
 	protected Controller controller;
@@ -17,7 +22,7 @@ public abstract class CommonModel implements Model {
 	protected ExecutorService threadPool;
 	
 	
-	public CommonModel() {
+	public CommonModel() {			//Ctor
 		mazeMap = new HashMap<String, Maze3d>();
 		solutionMap = new HashMap<String, Solution<Position>>();
 		 threadPool = Executors.newCachedThreadPool();
