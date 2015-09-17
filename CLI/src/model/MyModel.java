@@ -156,7 +156,7 @@ public class MyModel extends CommonModel {
 	public void load(String fileName, String name) {
 		try {
 				MyDecompressorInputStream tmpDecompressor = new MyDecompressorInputStream(new FileInputStream(fileName));
-				byte [] buffer = new byte[15*15*15]; 	//15 is the maximum supported maze in the compressor
+				byte [] buffer = new byte[35*35*35]; 	//15 is the maximum supported maze in the compressor
 				if (tmpDecompressor.read(buffer)==-1)
 				{
 					Maze3d  tmpMaze = new Maze3d(buffer);
